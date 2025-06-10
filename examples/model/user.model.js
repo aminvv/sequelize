@@ -2,32 +2,68 @@ const { Model, DataTypes } = require("@sequelize/core");
 const { sequelize } = require("../../config/db.config");
 
 
-
-class User extends Model {}
+// create model with  (Model) init
+class User extends Model { }
 
 User.init({
     username: DataTypes.STRING,
     birthday: DataTypes.DATE,
-},{
+}, {
     sequelize,
-    modelName:"user",
-    timestamps:true,
-    createdAt:false
+    modelName: "user",
+    timestamps: true,
+    createdAt: false
 })
 
 
 
+
+
+// create model with  (DEFINE)define
+
+
+const User_define = sequelize.define('user_define',{
+    username: DataTypes.STRING,
+    birthday: DataTypes.DATE,
+    age: DataTypes.INTEGER,
+}, {
+    sequelize,
+    timestamps: true,
+    createdAt: false,
+    tableName:"user-define"
+})
+
+
+
+
+
 async function main() {
-    await User.sync({force:true})
-    const user =await User.create({
-        username:'amin asadi',
-        birthday:new Date("1999-09-06")
+
+    //--------------------- model-- init
+    await User.sync({ force: true })
+    const user = await User.create({
+        username: 'amin asadi',
+        birthday: new Date("1999-09-06"),
+        age:25
     })
     console.log(user.dataValues);
+
+//-------------- define
+    await User_define.sync({ force: true })
+    const user_define = await User_define.create({
+        username: 'amin asadi',
+        birthday: new Date("1999-09-06"),
+        age:25
+    })
+    console.log(user_define.dataValues);
 }
 
 main()
 
-module.exports={
+module.exports = {
     main
 }
+
+
+
+
