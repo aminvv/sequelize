@@ -296,11 +296,11 @@ async function main() {
     })
 
     // console.log(' sumOfage user------------->>>>>>>',sumOfage);
-    
-    
-    
-    
-    
+
+
+
+
+
     //------------------------------------------------------------------------------ atribute ------- exclude
     const attribute = await User.findAll({
         where: {
@@ -308,7 +308,7 @@ async function main() {
                 [Op.gte]: 24
             }
         },
-        attributes:['firstname', 'lastname', 'age'],   //  show
+        attributes: ['firstname', 'lastname', 'age'],   //  show
         raw: true
     })
     // console.log(' attribute  ------------->>>>>>>',attribute);
@@ -321,7 +321,7 @@ async function main() {
                 [Op.gte]: 24
             }
         },
-        exclude:['username', 'birthday', 'bio'],  // not show
+        exclude: ['username', 'birthday', 'bio'],  // not show
         raw: true
     })
     // console.log(' attribute  ------------->>>>>>>',exclude);
@@ -340,12 +340,56 @@ async function main() {
         //     }
         // },
 
-        roder:[['id','DESC']],
-        roder:['firstname', "lastname"],                /// اولویت اول  اگر چند تا بود  اون وقت دوم
-        roder:[['id','DESC']],
+        roder: [['id', 'DESC']],
+        roder: ['firstname', "lastname"],                /// اولویت اول  اگر چند تا بود  اون وقت دوم
+        roder: [['id', 'DESC']],
         raw: true
     })
     // console.log(' order  ------------->>>>>>>',order);
+
+
+
+
+
+    //-------------------------------------------------------------------------------------------------------------------- find oprators
+    
+    const oprators = await User.findAll({
+        // where: {
+        //     firstname: {
+        //         [Op.regexp]: "a$",
+        //         [Op.regexp]: "^a",
+        //         [Op.notRegexp]: "a$",
+        //         [Op.notRegexp]: "^a",
+        //         [Op.like]: "a%",
+        //         [Op.notLike]: "%a%",
+        //         [Op.in]: ['amin','amir'],
+        //     },
+        //                 age: {
+        //         [Op.in]: [20,30,25,26],
+        //         [Op.notIn]: [20,30,25,26],
+        //         [Op.is]: null,
+        //         [Op.isNot]: null,
+        //         [Op.ne]: 34,
+         
+        //     },
+        // },  //////// ---------------------------------------  or کردن
+        //         where: {
+        //             [Op.or]:{
+        //                             firstname: {
+        //         [Op.regexp]: "a$",
+        //     },
+        //                 age: {
+        //         [Op.ne]: 34,
+        //     },
+        //             }
+        // },
+        raw: true
+    })
+
+
+
+
+
 
 }
 
