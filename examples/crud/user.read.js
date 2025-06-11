@@ -1,4 +1,4 @@
-const { DataTypes, Op } = require('@sequelize/core');
+const { DataTypes, Op, sql } = require('@sequelize/core');
 const { sequelize } = require('../../config/db.config');
 
 
@@ -254,7 +254,7 @@ async function main() {
 
 
 
-    const {rows, count} = await User.findAndCountAll({
+    const { rows, count } = await User.findAndCountAll({
         where: {},
         raw: true
     })
@@ -263,7 +263,7 @@ async function main() {
 
 
 
-    const  Count = await User.count({
+    const Count = await User.count({
         where: {},
         raw: true
     })
@@ -273,7 +273,7 @@ async function main() {
 
 
 
-    const min = await User.min('age',{
+    const min = await User.min('age', {
         where: {},
         raw: true
     })
@@ -281,21 +281,71 @@ async function main() {
 
 
 
-    const max = await User.max('age',{
+    const max = await User.max('age', {
         where: {},
         raw: true
     })
     //  console.log(' max age  user------------->>>>>>>',max);
-     
-     
-     
-     
-    const sumOfage = await User.sum('age',{
+
+
+
+
+    const sumOfage = await User.sum('age', {
         where: {},
         raw: true
     })
-    
+
     // console.log(' sumOfage user------------->>>>>>>',sumOfage);
+    
+    
+    
+    
+    
+    //------------------------------------------------------------------------------ atribute ------- exclude
+    const attribute = await User.findAll({
+        where: {
+            age: {
+                [Op.gte]: 24
+            }
+        },
+        attributes:['firstname', 'lastname', 'age'],   //  show
+        raw: true
+    })
+    // console.log(' attribute  ------------->>>>>>>',attribute);
+
+
+
+    const exclude = await User.findAll({
+        where: {
+            age: {
+                [Op.gte]: 24
+            }
+        },
+        exclude:['username', 'birthday', 'bio'],  // not show
+        raw: true
+    })
+    // console.log(' attribute  ------------->>>>>>>',exclude);
+
+
+
+
+
+
+    //----------------------------------------------------------------------------------------------------- order and sql.atrebiute
+
+    const order = await User.findAll({
+        // where: {
+        //     firstname: {
+        //         [Op.gte]: sql.attribute("lastname")             //     if  firstname === lastname
+        //     }
+        // },
+
+        roder:[['id','DESC']],
+        roder:['firstname', "lastname"],                /// اولویت اول  اگر چند تا بود  اون وقت دوم
+        roder:[['id','DESC']],
+        raw: true
+    })
+    // console.log(' order  ------------->>>>>>>',order);
 
 }
 
