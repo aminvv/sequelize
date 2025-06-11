@@ -197,7 +197,7 @@ const userList = [
 
 async function main() {
     await User.sync({ alter: true })
-    await User.bulkCreate(userList)
+    // await User.bulkCreate(userList)
 
     // const users=await User.findAll()
     // for(const user of users){
@@ -213,16 +213,28 @@ async function main() {
 
 
 
+
     const users = await User.findAll({
-                where:{
-        age: {
-            [Op.eq]: 24
-        }
-    },
-         raw: true 
+        where: {
+            age: {
+                [Op.eq]: 24
+            }
+        },
+        raw: true
     })
     console.log(users.length);
 
+
+
+//------------------------------pagination
+
+
+    const users_pagination = await User.findAll({
+        limit: 10,
+        offset:((2 - 1) * 10),
+        raw: true
+})
+console.log('pagination ---------->>>>>>>>',users_pagination);
 
 
 }
