@@ -226,32 +226,76 @@ async function main() {
 
 
 
-//------------------------------pagination
+    //------------------------------pagination
 
 
     const users_pagination = await User.findAll({
         limit: 10,
-        offset:((2 - 1) * 10),
+        offset: ((2 - 1) * 10),
         raw: true
-})
-// console.log('pagination ---------->>>>>>>>',users_pagination);
+    })
+    // console.log('pagination ---------->>>>>>>>',users_pagination);
 
 
 
 
-//--------------------------------------- findOne -- findByPk
+    //--------------------------------------- findOne -- findByPk
     const findOne = await User.findOne({
-        where: {firstname:'amin'},raw: true
+        where: { firstname: 'amin' }, raw: true
     })
     // console.log(' findOne user------------->>>>>>>',findOne);
 
 
 
 
-    const findByPk = await User.findByPk(630,{raw: true})
-    console.log(' findOneByPK user------------->>>>>>>',findByPk);
+    const findByPk = await User.findByPk(630, { raw: true })
+    // console.log(' findOneByPK user------------->>>>>>>',findByPk);
 
 
+
+
+    const {rows, count} = await User.findAndCountAll({
+        where: {},
+        raw: true
+    })
+    //  console.log(' findAndCountAll user------------->>>>>>>',count);
+    //  console.log(' findAndCountAll user------------->>>>>>>',rows);
+
+
+
+    const  Count = await User.count({
+        where: {},
+        raw: true
+    })
+
+    //  console.log(' just count  user------------->>>>>>>',Count);
+
+
+
+
+    const min = await User.min('age',{
+        where: {},
+        raw: true
+    })
+    //  console.log(' min age  user------------->>>>>>>',min);
+
+
+
+    const max = await User.max('age',{
+        where: {},
+        raw: true
+    })
+    //  console.log(' max age  user------------->>>>>>>',max);
+     
+     
+     
+     
+    const sumOfage = await User.sum('age',{
+        where: {},
+        raw: true
+    })
+    
+    // console.log(' sumOfage user------------->>>>>>>',sumOfage);
 
 }
 
