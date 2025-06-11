@@ -1,3 +1,4 @@
 const { sequelize } = require("./config/db.config");
-const { main } = require("./examples/model/user.model");
-
+const { runBlog } = require("./examples/model/blog.model");
+const { main } = require("./examples/crud/user-create");
+ 
