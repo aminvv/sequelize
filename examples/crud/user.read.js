@@ -222,7 +222,7 @@ async function main() {
         },
         raw: true
     })
-    console.log(users.length);
+    // console.log(users.length);
 
 
 
@@ -234,7 +234,23 @@ async function main() {
         offset:((2 - 1) * 10),
         raw: true
 })
-console.log('pagination ---------->>>>>>>>',users_pagination);
+// console.log('pagination ---------->>>>>>>>',users_pagination);
+
+
+
+
+//--------------------------------------- findOne -- findByPk
+    const findOne = await User.findOne({
+        where: {firstname:'amin'},raw: true
+    })
+    // console.log(' findOne user------------->>>>>>>',findOne);
+
+
+
+
+    const findByPk = await User.findByPk(630,{raw: true})
+    console.log(' findOneByPK user------------->>>>>>>',findByPk);
+
 
 
 }
